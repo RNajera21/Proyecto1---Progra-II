@@ -1,32 +1,82 @@
 ﻿
 //Incluir estudiantes
 
-int[] infoestudiantes = new int[3];
-string cedulaest = "";
-string nombreest = "";
-int ced = 0;
-string let = "";
-bool verifnum = false;
-bool veriflet = false;
+//Objeto, permite varios tipos de datos en la matriz
+object[,] infoestudiantes = new object[10, 4];
 
-for (int i = 0; i < infoestudiantes.Length;)
+//Variables de verificacion
+bool nums = false;
+bool letras = false;
+string text = "";
+string condicion = "";
+int n = 0;
+double prom = 0;
+
+//Ciclo de recoleccion de datos
+
+for (int i = 0; i < 10; i++)
 {
-    Console.WriteLine("Ingrese la cédula del Estudiante " + (i + 1));
-        cedulaest = (Console.ReadLine());
-        while (!verifnum)
+    //Ciclo para recoleccion de cedulas
+
+    do
+        try
+        {
+            Console.WriteLine("Ingrese la cédula del Estudiante " + (i + 1));
+            infoestudiantes[i, 0] = int.Parse(Console.ReadLine());
+            nums = false;
+        }
+        catch
+        {
+            Console.WriteLine("Este campo solo acepta dígitos");
+            nums = true;
+        }
+    while (nums);
+
+    //Ciclo de recoleccion de nombre
+
+    Console.WriteLine("Nombre del Estudiante  " + (i + 1));
+    infoestudiantes[i, 1] = (Console.ReadLine());
+
+    //Ingreso del promedio
+
+    do
+
+        try
+        {
+            Console.WriteLine("Promedio del estudiante: " + (i + 1));
+            infoestudiantes[i, 2] = (Console.ReadLine());
+            nums = false;
+        }
+        catch
+        {
+            Console.WriteLine("Este campo solo acepta dígitos");
+            nums = true;
+            prom = (double)infoestudiantes[i, 2];
+        }
+    while (nums);
+
+    if (prom < 70)
+        condicion = "Aprobado";
+    else
+        condicion = "Reprobado";
+
+    Console.WriteLine("La condicion del Estudiante es: " + condicion);
+    infoestudiantes[i, 3] = condicion;
+
+    //Menú para ingresar mas usuarios
+    Console.WriteLine("¿Desea ingresar información de otro estudiante? (S/N): ");
+    string continuar = Console.ReadLine();
+    if (continuar.ToUpper() != "S")
     {
-        Console.WriteLine("Este campo únicamente acepta dígitos");
-        verifnum = int.TryParse(Console.ReadLine(), out ced);
+        break;
     }
-    Console.WriteLine("Nombre del Estudiante  " + (i+1));
-        nombreest = (Console.ReadLine());
-    Console.WriteLine("Estudiante ingresado correctamente");
-        i++;
+
 }
 
-Console.WriteLine("Lainformación guardada es: ");
-for (int i = 0; i < infoestudiantes.Length; i++)
+for (int i = 0; i < 10; i++)
 {
-    Console.WriteLine("Los Estudiantes en memoria son:");
-    Console.WriteLine("Estudiante 1: \nCédula: " + cedulaest, "\nNombre: " + nombreest);
+    Console.WriteLine($"{infoestudiantes[i, 0]}\t{infoestudiantes[i, 1]}\t{infoestudiantes[i, 2]}\t\t{infoestudiantes[i, 3]}");
 }
+
+
+
