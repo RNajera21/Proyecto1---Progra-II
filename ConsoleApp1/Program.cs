@@ -46,16 +46,17 @@ for (int i = 0; i < 10; i++)
             Console.WriteLine("Promedio del estudiante: " + (i + 1));
             infoestudiantes[i, 2] = (Console.ReadLine());
             nums = false;
+            prom = (double)infoestudiantes[i, 2];
+
         }
         catch
         {
             Console.WriteLine("Este campo solo acepta dígitos");
             nums = true;
-            prom = (double)infoestudiantes[i, 2];
         }
     while (nums);
 
-    if (prom < 70)
+    if (prom >= 70)
         condicion = "Aprobado";
     else
         condicion = "Reprobado";
