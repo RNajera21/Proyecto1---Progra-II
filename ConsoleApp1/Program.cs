@@ -64,62 +64,62 @@ while (true)
                 }
                 else
                 {
-                    if (infoestudiantes[i, 0] == null || infoestudiantes[i, 0].Equals("")) { 
-                    //Aquí iría el código para insertar
+                    if (infoestudiantes[i, 0] == null || infoestudiantes[i, 0].Equals("")) {
+                        do
+                            try
+                            {
+                                Console.WriteLine("-Ingrese la cédula del Estudiante " + (i + 1));
+                                infoestudiantes[i, 0] = int.Parse(Console.ReadLine());
+                                nums = false;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("------Este campo solo acepta dígitos------");
+                                nums = true;
+                            }
+                        while (nums);
+
+                        //Ciclo de recoleccion de nombre
+
+                        Console.WriteLine("-Nombre del Estudiante  " + (i + 1));
+                        infoestudiantes[i, 1] = (Console.ReadLine());
+
+                        //Ingreso del promedio
+                        do
+                            try
+                            {
+                                Console.WriteLine("Promedio del estudiante: " + (i + 1));
+                                infoestudiantes[i, 2] = double.Parse(Console.ReadLine());
+                                nums = false;
+                                prom = (double)infoestudiantes[i, 2];
+
+                            }
+                            catch
+                            {
+                                Console.WriteLine("------Este campo solo acepta dígitos------");
+                                nums = true;
+                            }
+                        while (nums);
+
+                        if (prom >= 70)
+                            condicion = "Aprobado";
+                        else
+                            condicion = "Reprobado";
+
+                        Console.WriteLine("La condicion del Estudiante es: " + condicion);
+                        infoestudiantes[i, 3] = condicion;
+
+                        //Menú para ingresar mas usuarios
+                        Console.WriteLine("------------------------------------------------------");
+                        Console.WriteLine("¿Desea ingresar información de otro estudiante? (S/N): ");
+                        string continuar = Console.ReadLine();
+                        if (continuar.ToUpper() != "S")
+                        {
+                            break;
+                        }
+
+
                     }
-                    do
-                        try
-                        {
-                            Console.WriteLine("-Ingrese la cédula del Estudiante " + (i + 1));
-                            infoestudiantes[i, 0] = int.Parse(Console.ReadLine());
-                            nums = false;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("------Este campo solo acepta dígitos------");
-                            nums = true;
-                        }
-                    while (nums);
-
-                    //Ciclo de recoleccion de nombre
-
-                    Console.WriteLine("-Nombre del Estudiante  " + (i + 1));
-                    infoestudiantes[i, 1] = (Console.ReadLine());
-
-                    //Ingreso del promedio
-                    do
-                        try
-                        {
-                            Console.WriteLine("Promedio del estudiante: " + (i + 1));
-                            infoestudiantes[i, 2] = double.Parse(Console.ReadLine());
-                            nums = false;
-                            prom = (double)infoestudiantes[i, 2];
-
-                        }
-                        catch
-                        {
-                            Console.WriteLine("------Este campo solo acepta dígitos------");
-                            nums = true;
-                        }
-                    while (nums);
-
-                    if (prom >= 70)
-                        condicion = "Aprobado";
-                    else
-                        condicion = "Reprobado";
-
-                    Console.WriteLine("La condicion del Estudiante es: " + condicion);
-                    infoestudiantes[i, 3] = condicion;
-
-                    //Menú para ingresar mas usuarios
-                    Console.WriteLine("------------------------------------------------------");
-                    Console.WriteLine("¿Desea ingresar información de otro estudiante? (S/N): ");
-                    string continuar = Console.ReadLine();
-                    if (continuar.ToUpper() != "S")
-                    {
-                        break;
-                    }
-
                 }
 
 
