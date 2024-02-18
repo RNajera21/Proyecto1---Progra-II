@@ -279,7 +279,7 @@ while (true)
 
                 if (existe)
                 {
-                    infoestudiantes[columna, 0] = "";
+                    infoestudiantes[columna, 0] = -1;
                     infoestudiantes[columna, 1] = "";
                     infoestudiantes[columna, 2] = "";
                     infoestudiantes[columna, 3] = "";
