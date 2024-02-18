@@ -46,10 +46,9 @@ while (true)
                 columna = 0;  //almacena el valor del indice en el momento que se encontró la coincidencia
                 for (int c = 0; c < 10; c++)
                 {
-                    if (infoestudiantes[c, 0] != null && (int)infoestudiantes[c, 0] == cedula)
+                    if (infoestudiantes[c, 0] != null && (int)infoestudiantes[c, 0] == cedula)// infoestudiantes[c, 0] == null || infoestudiantes[c, 0] == ""
                     {
                         existe = true;
-                        columna = c;
                         break;
                     }
                     else
@@ -65,6 +64,9 @@ while (true)
                 }
                 else
                 {
+                    if (infoestudiantes[i, 0] == null || infoestudiantes[i, 0].Equals("")) { 
+                    //Aquí iría el código para insertar
+                    }
                     do
                         try
                         {
