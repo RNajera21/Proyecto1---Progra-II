@@ -61,7 +61,7 @@ while (true)
 
                 for (int c = 0; c < 10; c++)
                 {
-                    if (infoestudiantes[c, 0] != null && (int)infoestudiantes[c, 0] == cedIngreso)// infoestudiantes[c, 0] == null || infoestudiantes[c, 0] == ""
+                    if (infoestudiantes[c, 0] != null && (int)infoestudiantes[c, 0] == cedIngreso)
                     {
                         existe = true;
                         break;
@@ -80,27 +80,30 @@ while (true)
                 }
                 else
                 {
-                    //if (infoestudiantes[i, 0] == null || infoestudiantes[i, 0].Equals("")) { }
                     infoestudiantes[i, 0] = cedIngreso;
-                    do
-                        try
-                        {
-                            Console.WriteLine("-Ingrese la cédula del Estudiante " + (i + 1));
-                            infoestudiantes[i, 0] = int.Parse(Console.ReadLine());
-                            nums = false;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("------Este campo solo acepta dígitos------");
-                            nums = true;
-                        }
-                    while (nums);
-
                     //Ciclo de recoleccion de nombre
 
-                    Console.WriteLine("-Nombre del Estudiante  " + (i + 1));
-                    infoestudiantes[i, 1] = (Console.ReadLine());
+                    do
+                    {
 
+                        var nombre = "a";
+                        Console.WriteLine("-Nombre del Estudiante  " + (i + 1));
+                        nombre = (Console.ReadLine());
+                        foreach (char c in nombre)
+                        {
+                            // Verificar si el valor ASCII del carácter está dentro del rango de letras
+                            if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')))
+                            {
+                                letras = !false;
+                                Console.WriteLine("La cadena contiene caracteres que no son letras.");
+                            }
+                            else
+                            {
+                                infoestudiantes[i, 1] = nombre;
+                                letras = false;
+                            }
+                        }
+                    } while (letras);
                     //Ingreso del promedio
                     do
                         try
@@ -344,7 +347,7 @@ while (true)
                             Console.WriteLine("******************************************************");
                             Console.WriteLine("1- Estudiantes aprobados");
                             Console.WriteLine("2- Estudiantes reprobados");
-                            Console.WriteLine("3- Regresar al menú de reportes");
+                            Console.WriteLine("3- Regresar al menú principal");
                             Console.WriteLine("Ingrese el número de opción:");
                             var reportOp = int.Parse(Console.ReadLine());
 
@@ -365,16 +368,15 @@ while (true)
                                         }
                                     }
                                     Console.Clear();
-                                    Console.WriteLine("******************************************************");
-                                    Console.WriteLine("**          Reporte de Estudiantes Aprobados        **");
-                                    Console.WriteLine("******************************************************");
-                                    Console.WriteLine($"\t Cedula \t Nombre \t Promedio \t Condición");
-                                    Console.WriteLine("======================================================");
+                                    Console.WriteLine("*******************************************************************");
+                                    Console.WriteLine("**                Reporte de Estudiantes Aprobados               **");
+                                    Console.WriteLine("*******************************************************************");
+                                    Console.WriteLine($"{"Cedula",-10}{"Nombre",-30}{"Promedio",-10}{"Condición",-15}");
+                                    Console.WriteLine("===================================================================");
 
                                     for (int i = 0; i < 10; i++)
                                     {
-                                        Console.WriteLine($"{aprobados[i, 0]}\t{aprobados[i, 1]}\t{aprobados[i, 2]}\t\t{aprobados[i, 3]}");
-
+                                        Console.WriteLine($"{aprobados[i, 0],-10}{aprobados[i, 1],-30}{aprobados[i, 2],-10}{aprobados[i, 3],-15}");
                                     }
                                     Console.WriteLine("<Pulse cualquier tecla para abandonar>");
                                     Console.ReadKey();
@@ -382,54 +384,37 @@ while (true)
 
                                     break;
                                 case 2:
-                                    while (true)
+                                    object[,] reprobados = new object[10, 4];
+                                    int iReprob = 0;
+                                    for (int i = 0; i < 10; i++)
                                     {
-                                        Console.Clear();
-                                        Console.WriteLine("******************************************************");
-                                        Console.WriteLine("**        Consulta de Estudiantes Registrados       **");
-                                        Console.WriteLine("******************************************************");
-                                        Console.WriteLine("-Ingrese el número de cédula del estudiante:");
-                                        cedula = int.Parse(Console.ReadLine());
-
-                                        //Recorre el arreglo en busqueda de la cédula
-                                        existe = true;
-                                        columna = 0;  //almacena el valor del indice en el momento que se encontró la coincidencia
-                                        for (int c = 0; c < 10; c++)
+                                        if (infoestudiantes[i, 3] != null && infoestudiantes[i, 3].Equals("Reprobado"))
                                         {
-                                            if (infoestudiantes[c, 0] != null && (int)infoestudiantes[c, 0] == cedula)
-                                            {
-                                                existe = true;
-                                                columna = c;
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                existe = false;
-                                            }
+                                            reprobados[iReprob, 0] = infoestudiantes[i, 0];
+                                            reprobados[iReprob, 1] = infoestudiantes[i, 1];
+                                            reprobados[iReprob, 2] = infoestudiantes[i, 2];
+                                            reprobados[iReprob, 3] = infoestudiantes[i, 3];
+                                            iReprob++;
                                         }
-
-                                        if (existe)
-                                        {
-                                            Console.WriteLine("-Nombre: {0}", infoestudiantes[columna, 1]);
-                                            Console.WriteLine("-Promedio: {0}", infoestudiantes[columna, 2]);
-                                            Console.WriteLine("-Condición: {0}", infoestudiantes[columna, 3]);
-
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine();
-                                            Console.WriteLine("No existe un registro para la cédula digitada.");
-
-                                        }
-                                        Console.WriteLine("------------------------------------------------------");
-                                        Console.WriteLine("¿Desea realizar otra consulta? (S/N): ");
-                                        string continuar = Console.ReadLine();
-                                        if (continuar.ToUpper() != "S")
-                                        {
-                                            break;
-                                        }
-
                                     }
+                                    Console.Clear();
+                                    Console.WriteLine("*******************************************************************");
+                                    Console.WriteLine("**                Reporte de Estudiantes Reprobados               **");
+                                    Console.WriteLine("*******************************************************************");
+                                    Console.WriteLine($"{"Cedula",-10}{"Nombre",-30}{"Promedio",-10}{"Condición",-15}");
+                                    Console.WriteLine("===================================================================");
+
+                                    for (int i = 0; i < 10; i++)
+                                    {
+                                        Console.WriteLine($"{reprobados[i, 0],-10}{reprobados[i, 1],-30}{reprobados[i, 2],-10}{reprobados[i, 3],-15}");
+                                    }
+
+                                    Console.WriteLine("<Pulse cualquier tecla para abandonar>");
+                                    Console.ReadKey();
+                                    Environment.Exit(0);
+
+                                    break;
+                                case 3:
                                     break;
                                 default:
                                     Console.WriteLine("Opción no válida, por favor inténtelo de nuevo.");
@@ -437,55 +422,27 @@ while (true)
                                     Console.Clear();
                                     break;
                             }
+                            break;
                         }
+                        break;
                     case 2:
                         while (true)
                         {
                             Console.Clear();
-                            Console.WriteLine("******************************************************");
-                            Console.WriteLine("**        Consulta de Estudiantes Registrados       **");
-                            Console.WriteLine("******************************************************");
-                            Console.WriteLine("-Ingrese el número de cédula del estudiante:");
-                            cedula = int.Parse(Console.ReadLine());
+                            Console.WriteLine("*******************************************************************");
+                            Console.WriteLine("**                     Reporte de Estudiantes                    **");
+                            Console.WriteLine("*******************************************************************");
+                            Console.WriteLine($"{"Cedula",-10}{"Nombre",-30}{"Promedio",-10}{"Condición",-15}");
+                            Console.WriteLine("===================================================================");
 
-                            //Recorre el arreglo en busqueda de la cédula
-                            existe = true;
-                            columna = 0;  //almacena el valor del indice en el momento que se encontró la coincidencia
-                            for (int c = 0; c < 10; c++)
+                            for (int i = 0; i < 10; i++)
                             {
-                                if (infoestudiantes[c, 0] != null && (int)infoestudiantes[c, 0] == cedula)
-                                {
-                                    existe = true;
-                                    columna = c;
-                                    break;
-                                }
-                                else
-                                {
-                                    existe = false;
-                                }
+                                Console.WriteLine($"{infoestudiantes[i, 0],-10}{infoestudiantes[i, 1],-30}{infoestudiantes[i, 2],-10}{infoestudiantes[i, 3],-15}");
                             }
 
-                            if (existe)
-                            {
-                                Console.WriteLine("-Nombre: {0}", infoestudiantes[columna, 1]);
-                                Console.WriteLine("-Promedio: {0}", infoestudiantes[columna, 2]);
-                                Console.WriteLine("-Condición: {0}", infoestudiantes[columna, 3]);
-
-                            }
-                            else
-                            {
-                                Console.WriteLine();
-                                Console.WriteLine("No existe un registro para la cédula digitada.");
-
-                            }
-                            Console.WriteLine("------------------------------------------------------");
-                            Console.WriteLine("¿Desea realizar otra consulta? (S/N): ");
-                            string continuar = Console.ReadLine();
-                            if (continuar.ToUpper() != "S")
-                            {
-                                break;
-                            }
-
+                            Console.WriteLine("<Pulse cualquier tecla para abandonar>");
+                            Console.ReadKey();
+                            Environment.Exit(0);
                         }
                         break;
                     case 3:
@@ -496,6 +453,7 @@ while (true)
                         Console.Clear();
                         break;
                 }
+                break;
             }
             break;
         case 6:
