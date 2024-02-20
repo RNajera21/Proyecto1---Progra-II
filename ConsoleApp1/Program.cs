@@ -457,7 +457,8 @@ while (true)
             }
             break;
         case 6:
-            Console.WriteLine("Seleccionaste la Opción 6");
+            Console.WriteLine("Saliste del sistema");
+            Environment.Exit(0);
             break;
         default:
             Console.WriteLine("Opción no válida, por favor inténtelo de nuevo.");
